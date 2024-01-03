@@ -1021,6 +1021,7 @@ public class AudioPlayer implements MethodCallHandler, Player.Listener, Metadata
         mediaSource = null;
         clearAudioEffects();
         if (player != null) {
+            player.removeListener(this);
             player.release();
             player = null;
             processingState = ProcessingState.none;
