@@ -30,8 +30,7 @@ public class MainMethodCallHandler implements MethodCallHandler {
         case "init": {
             String id = call.argument("id");
             if (players.containsKey(id)) {
-                result.error("Platform player " + id + " already exists", null, null);
-                break;
+                disposePlayer(id);
             }
             List<Object> rawAudioEffects = call.argument("androidAudioEffects");
             players.put(
@@ -50,11 +49,7 @@ public class MainMethodCallHandler implements MethodCallHandler {
         }
         case "disposePlayer": {
             String id = call.argument("id");
-            AudioPlayer player = players.get(id);
-            if (player != null) {
-                player.dispose();
-                players.remove(id);
-            }
+            disposePlayer(id);
             result.success(new HashMap<String, Object>());
             break;
         }
@@ -66,6 +61,14 @@ public class MainMethodCallHandler implements MethodCallHandler {
         default:
             result.notImplemented();
             break;
+        }
+    }
+
+    void disposePlayer(String id) {
+        AudioPlayer player = players.get(id);
+        if (player != null) {
+            player.dispose();
+            players.remove(id);
         }
     }
 

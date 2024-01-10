@@ -340,7 +340,7 @@
     // TODO: Provide a similar case as _seekPos for _initialPos.
     if (CMTIME_IS_VALID(_seekPos)) {
         return (int)(1000 * CMTimeGetSeconds(_seekPos));
-    } else if (_indexedAudioSources && _indexedAudioSources.count > 0) {
+    } else if (_indexedAudioSources && _indexedAudioSources.count > _index) {
         int ms = (int)(1000 * CMTimeGetSeconds(_indexedAudioSources[_index].position));
         if (ms < 0) ms = 0;
         return ms;
@@ -352,7 +352,7 @@
 - (int)getBufferedPosition {
     if (_processingState == none || _processingState == loading) {
         return 0;
-    } else if (_indexedAudioSources && _indexedAudioSources.count > 0) {
+    } else if (_indexedAudioSources && _indexedAudioSources.count > _index) {
         int ms = (int)(1000 * CMTimeGetSeconds(_indexedAudioSources[_index].bufferedPosition));
         if (ms < 0) ms = 0;
         return ms;
