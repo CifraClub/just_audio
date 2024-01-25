@@ -737,7 +737,7 @@
         _index = [_order[([_orderInv[_index] intValue] + 1) % _order.count] intValue];
         [self broadcastPlaybackEvent];
         _justAdvanced = YES;
-    } else if ([_orderInv[_index] intValue] + 1 < [_order count]) {
+    } else if (_index < [_orderInv count] && [_orderInv[_index] intValue] + 1 < [_order count]) {
         [endedSource seek:kCMTimeZero];
         _index = [_order[([_orderInv[_index] intValue] + 1)] intValue];
         [self updateEndAction];
